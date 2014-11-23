@@ -1,2 +1,40 @@
 ---
 # tasks file for heka
+
+- name: Install make
+  apt: name=make state=present
+
+- name: Install GIT
+  apt: name=git state=present
+
+- name: Install GCC
+  apt: name=build-essential state=present
+
+- name: Install Patch
+  apt: name=patch state=present
+
+- name: Install mercurial
+  apt: name=mercurial state=present
+
+- name: Install Python
+  apt: name=python state=present
+
+- name: Install
+  apt: name=python-setuptools state=present
+
+- shell: easy_install -U Sphinx
+
+- name: Download Go
+  get_url: url=http://golang.org/dl/go{{ heka_golang_version }}.{{ heka_golang_os }}-{{ heka_golang_arch }}.tar.gz
+           dest=/usr/local/src/go{{ heka_golang_version }}.{{ heka_golang_os }}-{{ heka_golang_arch }}.tar.gz
+
+- name: Extract and install Go
+  command: tar -C /usr/local -xzf /usr/local/src/go{{ heka_golang_version }}.{{ heka_golang_os }}-{{ heka_golang_arch }}.tar.gz
+           creates=/usr/local/bin/go
+
+- name: Symlink Go into /usr/local/bin
+  file: src=/usr/local/go/bin/{{ item }} dest=/usr/local/bin/{{ item }} state=link
+  with_items:
+    - go
+    - godoc
+    - gofmt
