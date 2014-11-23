@@ -1,2 +1,58 @@
 ---
-# tasks file for heka
+
+- name: Create temp folder for heka
+  command: mkdir -p -m 0755 {{ heka_temp_path }}
+
+##Debian
+#- name: Download heka
+#  get_url:
+#    dest={{ heka_temp_path }}/{{ heka_package_filename }}
+#    url={{ heka_mirror }}/v{{ heka_version }}/{{ heka_package_filename }}
+
+#- name: Install heka
+#  command: dpkg -i {{ heka_temp_path }}/{{ heka_package_filename }}
+
+- name: Install hekad service (debian)
+  template:
+    src=hekad_initd.j2
+    dest=/etc/init.d/hekad
+    owner=0
+    group=0
+    mode=0644
+
+- name: Create directory
+  file: dest={{ heka_hekad_dir }} mode=0755 state=directory
+
+- name: Create dashboard directory
+  file: dest={{ heka_hekad_cache_dir }}/dashboard mode=0755 state=directory
+
+- name: Create Cache directory
+  file: dest={{ heka_hekad_cache_dir }} mode=0755 state=directory
+
+- name: Install hekad configuration
+#  notify: service restart hekad
+  template:
+    src=hekad_main.toml.j2
+    dest={{ heka_hekad_dir }}/_hekad_main.toml
+    owner=0
+    group=0
+    mode=0644
+
+- name: Enable Inputs
+  with_items: heka_inputs
+  template:
+    src=hekad_input_{{ item.type }}.toml.j2
+    dest={{ heka_hekad_dir }}/{{ item.name }}.toml
+    owner=0
+    group=0
+    mode=0644
+
+- name: Enable outputs
+  #notify: service restart hekad
+  with_items: heka_outputs
+  template:
+    src=hekad_output_{{ item.type }}.toml.j2
+    dest={{ heka_hekad_dir }}/{{ item.name }}.toml
+    owner=0
+    group=0
+    mode=0644
