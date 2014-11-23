@@ -4,3 +4,9 @@ heka_golang_version: 1.3.3
 heka_golang_os:   linux
 heka_golang_arch: amd64
 
+heka_temp_path:   /tmp/ansible/sources
+
+heka_mirror: https://github.com/mozilla-services/heka/releases/download
+heka_version: 0.8.0
+heka_package_filename: heka_{{ heka_version }}_amd64.deb
+heka_package_sha256sum: de35653b8907b05d6b9639b5f0636158

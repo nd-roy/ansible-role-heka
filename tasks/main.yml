@@ -1,5 +1,4 @@
 ---
-# tasks file for heka
 
 - name: Install make
   apt: name=make state=present
@@ -38,3 +37,15 @@
     - go
     - godoc
     - gofmt
+
+- name: Create temp folder for heka
+  command: mkdir -p -m 644 {{ heka_temp_path }}
+
+##Debian
+- name: Download heka
+  get_url:
+    dest={{ heka_temp_path }}/{{ heka_package_filename }}
+    url={{ heka_mirror }}/v{{ heka_version }}/{{ heka_package_filename }}
+
+- name: Install heka
+  command: dpkg -i {{ heka_temp_path }}/{{ heka_package_filename }}
