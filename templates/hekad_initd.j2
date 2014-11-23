@@ -33,7 +33,11 @@ fi
 
 exec="/usr/bin/hekad"
 prog="hekad"
+<<<<<<< HEAD
 pid_file="{{ heka_hekad_pid_dir}}{{ heka_hekad_pid_file }}"
+=======
+pidfile=/var/run/hekad/${prog}.pid
+>>>>>>> Add configuration example
 
 [ -e /etc/sysconfig/$prog ] && . /etc/sysconfig/$prog
 
@@ -46,8 +50,12 @@ start() {
     [ -f $CONF_FILE ] || exit 6
     echo -n $"Starting $prog: "
     # if not running, start it up here, usually something like "daemon $exec"
+<<<<<<< HEAD
     /usr/bin/daemon -nhekad --pidfile="$pid_file" -o={{ heka_hekad_log_file }} -- $exec -config=/etc/hekad.d
 
+=======
+    /usr/local/bin/daemon -nhekad -u$HEKA_USER -F$pidfile -o{{ heka_hekad_log_file }} -- $exec -config={{ heka_hekad_dir }}
+>>>>>>> Add configuration example
     retval=$?
     [ $retval -eq 0 ] && success || failure
     echo
@@ -81,7 +89,11 @@ force_reload() {
 
 rh_status() {
     # run checks to determine if the service is running or use generic status
+<<<<<<< HEAD
     status $pidfile $prog
+=======
+    status -p $pidfile $prog
+>>>>>>> Add configuration example
 }
 
 rh_status_q() {
