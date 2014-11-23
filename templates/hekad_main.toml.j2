@@ -1,0 +1,36 @@
+[hekad]
+
+base_dir = "{{ heka_hekad_cache_dir }}"
+
+memprof = true
+cpuprof = true
+
+[ESJsonEncoder]
+index = "%{Type}-%{2006.01.02}"
+es_index_from_timestamp = true
+type_name = "%{Type}"
+
+[monolog_decoder]
+type = "PayloadRegexDecoder"
+match_regex = "^\\[(?P<Timestamp>[^\\]]+)\\] (?P<Channel>.+?)\\.(?P<Severity>[A-Z]+): (?P<Message>.*)"
+timestamp_layout = "2006-01-02 15:04:05"
+timestamp_location = "UTC" # optional, default value
+
+[monolog_decoder.severity_map]
+DEBUG = 7
+INFO = 6
+NOTICE = 5
+WARNING = 4
+ERROR = 3
+CRITICAL = 2
+ALERT = 1
+EMERGENCY = 0
+
+[monolog_decoder.message_fields]
+Type = "monolog_log"
+Logger = "packagist.org"
+Hostname = "composer"
+
+Channel = "%Channel%"
+Message = "%Message%"
+Payload = ""

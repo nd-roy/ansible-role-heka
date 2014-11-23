@@ -1,0 +1,6 @@
+[ElasticSearchOutput]
+message_matcher = "Logger != 'hekad'"
+flush_interval = 5000
+flush_count = 10
+encoder = "ESJsonEncoder"
+server = "http://localhost:9200"
