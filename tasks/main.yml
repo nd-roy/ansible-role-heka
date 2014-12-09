@@ -17,7 +17,7 @@
 
 - name: Install hekad service (debian)
   template:
-    src=hekad_initd.j2
+    src=system/hekad_initd.j2
     dest=/etc/init.d/hekad
     owner=0
     group=0
@@ -47,7 +47,7 @@
 - name: Install hekad configuration
   notify: service restart hekad
   template:
-    src=hekad_main.toml.j2
+    src=heka/main.toml.j2
     dest={{ heka_hekad_dir }}/0_hekad_main.toml
     owner=0
     group=0
@@ -67,7 +67,7 @@
   notify: service restart hekad
   with_items: heka_inputs
   template:
-    src=hekad_input_{{ item.type }}.toml.j2
+    src=input/{{ item.type }}.toml.j2
     dest={{ heka_hekad_dir }}/3_{{ item.name }}.toml
     owner=0
     group=0
@@ -77,7 +77,7 @@
   notify: service restart hekad
   with_items: heka_outputs
   template:
-    src=hekad_output_{{ item.type }}.toml.j2
+    src=output/{{ item.type }}.toml.j2
     dest={{ heka_hekad_dir }}/4_{{ item.name }}.toml
     owner=0
     group=0

@@ -1,2 +1,21 @@
 ---
-# defaults file for heka
+heka_hekad_dir: /etc/hekad.d
+heka_hekad_log_file: /var/log/heka/hekad.log
+heka_hekad_cache_dir: /var/cache/hekad
+
+heka_dashboard_output_port: 4352
+
+heka_inputs:
+  - ApiDevInputs:
+    type: monolog_file
+    name: api_log_input
+    log_file: /var/log/apache2/error.log
+
+heka_outputs:
+  - DashboardOutput:
+    type: dashboard
+    name: dashboard
+    port: "{{ heka_dashbord_output_port }}"
+  - ElasticSearchOutput:
+    type: elastic_search
+    name: elastic_search
