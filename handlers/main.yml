@@ -1,2 +1,6 @@
 ---
-# handlers file for heka
+
+- name: service restart hekad
+  service:
+    state=restarted
+    name=hekad
