@@ -1,0 +1,10 @@
+[ESLogstashV0Encoder]
+es_index_from_timestamp = true
+type_name = "%{Type}"
+
+[ElasticSearchOutput]
+message_matcher = "Logger != 'hekad'"
+flush_interval = 5000
+flush_count = 10
+encoder = "ESLogstashV0Encoder"
+server = "http://localhost:9200"
