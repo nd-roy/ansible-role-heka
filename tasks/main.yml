@@ -12,8 +12,11 @@
 - name: Install heka
   command: dpkg -i {{ heka_temp_path }}/{{ heka_package_filename }}
 
-# Install the package "daemon"
 - apt: name=daemon state=present
+- apt: name=python-setuptools state=present
+
+- name: Install dependencies (debian)
+  command: easy_install killproc
 
 - name: Install hekad service (debian)
   template:
