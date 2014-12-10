@@ -21,7 +21,7 @@ heka_inputs:
   - ApiDevInputs:
     type: file
     name: syslog_file
-    log_file: /var/log/syslog.log
+    log_file: /var/log/syslog
 
 heka_outputs:
   - DashboardOutput:
