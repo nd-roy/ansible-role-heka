@@ -2,14 +2,26 @@
 heka_hekad_dir: /etc/hekad.d
 heka_hekad_log_file: /var/log/heka/hekad.log
 heka_hekad_cache_dir: /var/cache/hekad
+heka_hekad_lua_dir: "{{ heka_hekad_dir }}/lua"
 
 heka_dashboard_output_port: 4352
 
+heka_hekad_pid_dir: /var/run/hekad.d
+heka_hekad_pid_file: main.pid
+
+heka_decoders:
+  - monolog_decoder:
+    type: monolog
+    name: monolog
+
 heka_inputs:
+  - UdpMonologInputs:
+    type: monolog_udp
+    name: monolog_udp
   - ApiDevInputs:
-    type: monolog_file
-    name: api_log_input
-    log_file: /var/log/apache2/error.log
+    type: file
+    name: syslog_file
+    log_file: /var/log/syslog
 
 heka_outputs:
   - DashboardOutput:
