@@ -1,0 +1,9 @@
+[ApacheAccessLogDecoder]
+type = "SandboxDecoder"
+filename = "lua_decoders/apache_access.lua"
+
+[ApacheAccessLogDecoder.config]
+type = "combined"
+user_agent_transform = true
+# combined log format
+log_format = '%h %l %u %t \"%r\" %>s %O \"%{Referer}i\" \"%{User-Agent}i\"'

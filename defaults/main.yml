@@ -12,22 +12,27 @@ heka_hekad_pid_file: main.pid
 heka_decoders:
   - monolog_decoder:
     type: monolog
-    name: monolog
+    name: monolog_main
+  - apache_decoder:
+    type: apache_access
+    name: apache_access_main
 
 heka_inputs:
   - UdpMonologInputs:
     type: monolog_udp
-    name: monolog_udp
+    name: monolog_udp_main
   - ApiDevInputs:
-    type: file
-    name: syslog_file
-    log_file: /var/log/syslog
+    type: apache_access
+    name: apache_access_main
+    file_directory: /var/log/apache2
+    file_name: access\.log
+    apache_decoder_name: apache_access
 
 heka_outputs:
   - DashboardOutput:
     type: dashboard
-    name: dashboard
+    name: dashboard_main
     port: "{{ heka_dashbord_output_port }}"
   - ElasticSearchOutput:
     type: elastic_search
-    name: elastic_search
+    name: elastic_search_main
