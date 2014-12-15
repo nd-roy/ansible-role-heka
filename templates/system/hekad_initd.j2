@@ -1,18 +1,29 @@
 : ${ret:=0}
-LOCK=/var/run/hekad.lock
-PROC=hekad
+PROC=/usr/bin/hekad
+PID_FILE="/var/run/hekad.d/main.pid"
 
 start(){
-  echo -n $"Starting $PROC: "
-  daemon /usr/bin/hekad -config={{ heka_hekad_dir }}
-  ret=$?
-  echo
-  [ $ret -eq 0 ] && touch $LOCK
+  if [ -f $PID_FILE ]; then
+        echo "Already started\n"
+        exit
+  else
+        echo "Starting $PROC\n"
+  fi
+
+  daemon $PROC -- -config=/etc/hekad.d
 }
 
 stop(){
-  echo -n $"Stopping $PROC: "
-  killproc $PROC
+  echo -n $"Stopping $PROC \n"
+  if [ -f $PID_FILE ]; then
+        echo "Ok\n"
+  else
+        echo "No process found\n"
+        exit
+  fi
+
+  PID=`cat $PID_FILE`
+  kill $PID
   ret=$?
   echo
   [ $ret -eq 0 ] && rm -f $LOCK
@@ -30,7 +41,7 @@ case "$1" in
     start
   ;;
   status)
-    status $PROC
+    [ -f $PID_FILE ] && echo "Heka is running" || echo "No process found"
   ;;
   *)
     echo $"Usage: $prog {start|stop|restart|status}"

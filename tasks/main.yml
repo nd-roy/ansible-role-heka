@@ -86,12 +86,6 @@
     group=0
     mode=0644
 
-- name: Enable hekad service
-  service:
-    enabled=true
-    name=hekad
-
 - name: Start hekad service
-  service:
-    state=started
-    name=hekad
+  sudo: true
+  command: service hekad start
