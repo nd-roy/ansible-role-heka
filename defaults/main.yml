@@ -13,26 +13,34 @@ heka_decoders:
   - monolog_decoder:
     type: monolog
     name: monolog_main
-  - apache_decoder:
+
+  - apache_access_decoder:
     type: apache_access
     name: apache_access_main
 
 heka_inputs:
-  - UdpMonologInputs:
+  - udp_monolog_input:
     type: monolog_udp
     name: monolog_udp_main
-  - ApiDevInputs:
+
+  - apache_access_log_input:
     type: apache_access
     name: apache_access_main
     file_directory: /var/log/apache2
     file_name: access\.log
-    apache_decoder_name: apache_access
+
+  - apache_error_log_inputs:
+    type: file
+    name: apache_error_main
+    file_directory: /var/log/apache2
+    file_name: error\.log
 
 heka_outputs:
-  - DashboardOutput:
+  - dashboard_output:
     type: dashboard
     name: dashboard_main
     port: "{{ heka_dashbord_output_port }}"
-  - ElasticSearchOutput:
+
+  - elastic_search_output:
     type: elastic_search
     name: elastic_search_main

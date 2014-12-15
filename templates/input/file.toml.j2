@@ -1,3 +1,4 @@
 [{{ item.name }}]
-type = "FilePollingInput"
-file_path = "{{ item.log_file }}"
+type = "LogstreamerInput"
+log_directory = "{{ item.file_directory }}"
+file_match = '{{ item.file_name }}'
