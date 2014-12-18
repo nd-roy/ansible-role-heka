@@ -57,7 +57,7 @@
   with_items: heka_decoders
   template:
     src=decoder/{{ item.type }}.toml.j2
-    dest={{ heka_hekad_dir }}/1_{{ item.name }}.toml
+    dest={{ heka_hekad_dir }}/1_{{ item.type }}.toml
     owner=0
     group=0
     mode=0644
