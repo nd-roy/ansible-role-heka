@@ -60,7 +60,7 @@ List of default values
       - dashboard_output:
         type: dashboard
         name: dashboard_main
-        port: "{{ heka_dashbord_output_port }}"
+        port: "{{ heka_dashboard_output_port }}"
     
       - elastic_search_output:
         type: elastic_search
