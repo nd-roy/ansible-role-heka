@@ -1,0 +1,6 @@
+[NginxErrorLogDecoder]
+type = "SandboxDecoder"
+filename = "lua_decoders/nginx_error.lua"
+
+[NginxErrorLogDecoder.config]
+tz = "{{ item.timezone }}"
