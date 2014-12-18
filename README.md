@@ -82,7 +82,7 @@ To try the role : ansible-galaxy install AbdoulNdiaye.heka
 License
 -------
 
-BSD
+MIT
 
 Author Information
 ------------------
