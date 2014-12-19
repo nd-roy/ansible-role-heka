@@ -1,20 +1,26 @@
 ---
 
 - name: Create temp folder for heka
+  tags: heka
   command: mkdir -p -m 0755 {{ heka_temp_path }}
 
 ##Debian
 - name: Download heka
+  tags: heka
   get_url:
     dest={{ heka_temp_path }}/{{ heka_package_filename }}
     url={{ heka_mirror }}/v{{ heka_version }}/{{ heka_package_filename }}
 
 - name: Install heka
+  tags: heka
   command: dpkg -i {{ heka_temp_path }}/{{ heka_package_filename }}
 
-- apt: name=daemon state=present
+- name: Ensure daemon is present
+  tags: heka
+  apt: name=daemon state=present
 
 - name: Install hekad service (debian)
+  tags: heka
   template:
     src=system/hekad_initd.j2
     dest=/etc/init.d/hekad
@@ -24,18 +30,23 @@
 ##END DEBIAN
 
 - name: Create directory
+  tags: heka
   file: dest={{ heka_hekad_dir }} mode=0755 state=directory
 
 - name: Create Lua directory
+  tags: heka
   file: dest={{ heka_hekad_lua_dir }} mode=0755 state=directory
 
 - name: Create dashboard directory
+  tags: heka
   file: dest={{ heka_hekad_cache_dir }}/dashboard mode=0755 state=directory
 
 - name: Create PID directory
+  tags: heka
   file: dest={{ heka_hekad_pid_dir }} mode=0755 state=directory
 
 - name: Copy monolog.lua
+  tags: heka
   template:
     src=plugin/monolog.lua
     dest={{ heka_hekad_lua_dir }}/monolog.lua
@@ -44,6 +55,7 @@
     mode=0644
 
 - name: Install hekad configuration
+  tags: heka
   notify: service restart hekad
   template:
     src=heka/main.toml.j2
@@ -53,6 +65,7 @@
     mode=0644
 
 - name: Install hekad decoders
+  tags: heka
   notify: service restart hekad
   with_items: heka_decoders
   template:
@@ -63,6 +76,7 @@
     mode=0644
 
 - name: Enable Inputs
+  tags: heka
   notify: service restart hekad
   with_items: heka_inputs
   template:
@@ -73,6 +87,7 @@
     mode=0644
 
 - name: Enable outputs
+  tags: heka
   notify: service restart hekad
   with_items: heka_outputs
   template:
@@ -83,5 +98,6 @@
     mode=0644
 
 - name: Start hekad service
+  tags: heka
   sudo: true
   command: service hekad start
