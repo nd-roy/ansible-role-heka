@@ -1,7 +1,9 @@
 ---
 
 - name: Create temp folder for heka
-  command: mkdir -p -m 0755 {{ heka_temp_path }}
+  tags: heka
+  file: dest={{ heka_ansible_temp_path }} mode=0755 state=directory
+  file: dest={{ heka_temp_path }} mode=0755 state=directory
 
 ##Debian
 - name: Download heka
