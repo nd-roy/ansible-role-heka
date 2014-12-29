@@ -5,7 +5,7 @@ heka_golang_os:   linux
 heka_golang_arch: amd64
 
 heka_ansible_temp_path: /tmp/ansible
-heka_temp_path:   {{ heka_ansible_temp_path }}/sources
+heka_temp_path: "{{ heka_ansible_temp_path }}/sources"
 
 heka_mirror: https://github.com/mozilla-services/heka/releases/download
 heka_version: 0.8.0
