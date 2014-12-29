@@ -1,4 +1,5 @@
 ---
+
 heka_hekad_dir: /etc/hekad.d
 heka_hekad_log_file: /var/log/heka/hekad.log
 heka_hekad_cache_dir: /var/cache/hekad
