@@ -3,4 +3,5 @@
 - hosts: all
   sudo: yes
   roles:
-    - { role: ../../ansible-role-heka }
+    - { role: ../../ansible-role-heka, tags: heka }
+  
