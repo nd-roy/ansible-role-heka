@@ -93,5 +93,7 @@
     mode=0644
 
 - name: Start hekad service
-  sudo: true
-  command: service hekad restart
+  tags: heka
+  service:
+    name=hekad
+    state=started
