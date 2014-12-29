@@ -1,6 +1,6 @@
 : ${ret:=0}
 PROC=/usr/bin/hekad
-PID_FILE="/var/run/hekad.d/main.pid"
+PID_FILE="{{ heka_hekad_pid_dir}}/{{ heka_hekad_pid_file }}"
 
 start(){
   if [ -f $PID_FILE ]; then
@@ -23,7 +23,7 @@ stop(){
   fi
 
   PID=`cat $PID_FILE`
-  kill $PID
+  `kill $PID`
   ret=$?
   echo
   [ $ret -eq 0 ] && rm -f $LOCK
