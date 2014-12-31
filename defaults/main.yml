@@ -24,14 +24,14 @@ heka_inputs:
     type: file
     name: nginx_access_main
     file_directory: /var/log/nginx
-    file_name: access\.log
+    file_match: access\.log
     decoder: NginxAccessLogDecoder
 
   - nginx_error_log_input:
     type: file
     name: nginx_error_main
     file_directory: /var/log/nginx
-    file_name: error\.log
+    file_match: error\.log
     decoder: NginxErrorLogDecoder
 
 heka_outputs:

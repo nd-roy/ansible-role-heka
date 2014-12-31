@@ -1,5 +1,8 @@
 [{{ item.name }}]
 type = "LogstreamerInput"
 log_directory = "{{ item.file_directory }}"
-file_match = '{{ item.file_name }}'
+file_match = '{{ item.file_match }}'
 decoder = "{{ item.decoder }}"
+{% if item.differentiator is defined %}
+differentiator = {{ item.differentiator }}
+{% endif %}
