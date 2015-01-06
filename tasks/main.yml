@@ -64,7 +64,6 @@
 
 - name: Install hekad configuration
   tags: heka
-  notify: service restart hekad
   template:
     src=heka/main.toml.j2
     dest={{ heka_hekad_dir }}/0_hekad_main.toml
@@ -74,7 +73,6 @@
 
 - name: Install hekad decoders
   tags: heka
-  notify: service restart hekad
   with_items: heka_decoders
   template:
     src=decoder/{{ item.type }}.toml.j2
@@ -85,7 +83,6 @@
 
 - name: Enable Inputs
   tags: heka
-  notify: service restart hekad
   with_items: heka_inputs
   template:
     src=input/{{ item.type }}.toml.j2
@@ -96,7 +93,6 @@
 
 - name: Enable outputs
   tags: heka
-  notify: service restart hekad
   with_items: heka_outputs
   template:
     src=output/{{ item.type }}.toml.j2
@@ -108,4 +104,4 @@
 - name: Start hekad service
   tags: heka
   sudo: true
-  service: name=hekad state=started
+  service: name=hekad state=running
