@@ -1,6 +1,6 @@
 ---
 
-- name: Restart hekad
+- name: service restart hekad
   service:
     name=hekad
     state=restarted
