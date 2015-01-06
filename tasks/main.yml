@@ -108,6 +108,4 @@
 - name: Start hekad service
   tags: heka
   sudo: true
-  service:
-    name=hekad
-    state=started
+  service: name=hekad state=started

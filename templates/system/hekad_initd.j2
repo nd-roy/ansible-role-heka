@@ -2,6 +2,14 @@
 PROC=/usr/bin/hekad
 PID_FILE="{{ heka_hekad_pid_dir}}/{{ heka_hekad_pid_file }}"
 
+get_pid() {
+    cat "$PID_FILE"
+}
+
+is_running() {
+    [ -f "$PID_FILE" ] && ps `get_pid` > /dev/null 2>&1
+}
+
 start(){
   if [ -f $PID_FILE ]; then
         echo "Already started\n"
@@ -29,7 +37,12 @@ case "$1" in
     start
   ;;
   status)
-    [ -f $PID_FILE ] && echo "Heka is running" || echo "No process found"
+    if is_running; then
+      echo "Heka is running"
+    else
+      echo "No process found"
+      exit 1
+    fi
   ;;
   *)
     echo $"Usage: $prog {start|stop|restart|status}"
