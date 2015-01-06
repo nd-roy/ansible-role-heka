@@ -10,23 +10,11 @@ start(){
         echo "Starting $PROC\n"
   fi
 
-  daemon $PROC -- -config=/etc/hekad.d
+  daemon -n hekad -r -o {{ heka_hekad_log_file }} $PROC -- --config={{ heka_hekad_dir }}
 }
 
 stop(){
-  echo -n $"Stopping $PROC \n"
-  if [ -f $PID_FILE ]; then
-        echo "Ok\n"
-  else
-        echo "No process found\n"
-        exit
-  fi
-
-  PID=`cat $PID_FILE`
-  `kill $PID`
-  ret=$?
-  echo
-  [ $ret -eq 0 ] && rm -f $LOCK
+  daemon -n hekad --stop
 }
 
 case "$1" in
