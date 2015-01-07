@@ -21,7 +21,7 @@ List of default values
     
     ---
     heka_hekad_dir: /etc/hekad.d
-    heka_hekad_log_file: /var/log/heka/hekad.log
+    heka_hekad_log_file: /var/log/hekad.log
     heka_hekad_cache_dir: /var/cache/hekad
     heka_hekad_lua_dir: "{{ heka_hekad_dir }}/lua"
     
