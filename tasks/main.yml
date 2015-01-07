@@ -104,4 +104,5 @@
 - name: Start hekad service
   tags: heka
   sudo: true
-  service: name=hekad state=running
+  changed_when: False
+  service: name=hekad state=restarted
