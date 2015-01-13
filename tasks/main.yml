@@ -49,10 +49,6 @@
   tags: heka
   file: dest={{ heka_hekad_cache_dir }}/dashboard mode=0755 state=directory
 
-- name: Create PID directory
-  tags: heka
-  file: dest={{ heka_hekad_pid_dir }} mode=0755 state=directory
-
 - name: Copy monolog.lua
   tags: heka
   template:
