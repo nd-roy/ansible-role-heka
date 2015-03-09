@@ -35,6 +35,12 @@
     owner=0
     group=0
     mode=0755
+
+- name: Configure hekad at server startup
+  tags: heka
+  command: update-rc.d hekad defaults
+  when: heka_state|failed
+
 ##END DEBIAN
 
 - name: Create directory
