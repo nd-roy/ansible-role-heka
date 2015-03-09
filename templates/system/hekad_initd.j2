@@ -1,5 +1,15 @@
 #! /bin/sh
 
+### BEGIN INIT INFO
+# Provides:          hekad
+# Required-Start:    $remote_fs $syslog
+# Required-Stop:     $remote_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start hekad daemon at boot time
+# Description:       Data collection and processing made easy. http://hekad.readthedocs.org/
+### END INIT INFO
+
 : ${ret:=0}
 PROC=/usr/bin/hekad
 PID_FILE="{{ heka_hekad_pid_dir}}/{{ heka_hekad_pid_file }}"
