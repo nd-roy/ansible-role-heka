@@ -3,8 +3,6 @@ Heka
 
 [![Build Status](https://travis-ci.org/AbdoulNdiaye/ansible-role-heka.svg)](https://travis-ci.org/AbdoulNdiaye/ansible-role-heka)
 
-__Work in progress.__
-
 Heka is a tool for collecting and collating data from a number of different sources, performing "in-flight" processing of collected data, and delivering the results to any number of destinations for further analysis.
 
 This is an ansible project to configure Heka with Symfony2 applications.

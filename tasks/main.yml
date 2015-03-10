@@ -5,7 +5,6 @@
   file: dest={{ heka_ansible_temp_path }} mode=0755 state=directory
   file: dest={{ heka_temp_path }} mode=0755 state=directory
 
-##Debian
 - name: Download heka
   tags: heka
   get_url:
@@ -40,8 +39,6 @@
   tags: heka
   command: update-rc.d hekad defaults
   when: heka_state|failed
-
-##END DEBIAN
 
 - name: Create directory
   tags: heka
