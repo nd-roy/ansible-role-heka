@@ -12,27 +12,11 @@ heka_hekad_pid_file: main.pid
 
 heka_decoders:
   - { type: monolog }
-  - { type: nginx_access }
-  - { type: nginx_error, timezone: 'Europe/London' }
 
 heka_inputs:
   - udp_monolog_input:
     type: monolog_udp
     name: monolog_udp_main
-
-  - nginx_access_log_input:
-    type: file
-    name: nginx_access_main
-    file_directory: /var/log/nginx
-    file_match: access\.log
-    decoder: NginxAccessLogDecoder
-
-  - nginx_error_log_input:
-    type: file
-    name: nginx_error_main
-    file_directory: /var/log/nginx
-    file_match: error\.log
-    decoder: NginxErrorLogDecoder
 
 heka_outputs:
   - dashboard_output:
