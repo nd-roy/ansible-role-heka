@@ -7,8 +7,10 @@ Heka is a tool for collecting and collating data from a number of different sour
 
 This is an ansible project to configure Heka with Symfony2 applications.
 
-[Full documentation](https://github.com/AbdoulNdiaye/ansible-role-heka/wiki)
-----------------------------------------------------------------------------
+
+##Documentation
+  - [Nginx](docs/nginx.md)
+  - [Tests](docs/tests.md)
 
 Requirements
 ------------
